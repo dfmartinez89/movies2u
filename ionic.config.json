@@ -1,0 +1,7 @@
+{
+  "name": "movies2u",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
