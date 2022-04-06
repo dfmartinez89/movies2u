@@ -1,0 +1,6 @@
+{
+	"appId": "io.ionic.starter",
+	"appName": "movies2u",
+	"webDir": "www",
+	"bundledWebRuntime": false
+}
