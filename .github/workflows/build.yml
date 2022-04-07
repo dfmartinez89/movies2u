@@ -4,8 +4,6 @@
 name: build
 
 on:
-  push:
-    branches: [ master ]
   pull_request:
     branches: [ master ]
 
@@ -27,8 +25,13 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm i
-    - run: npm run build --if-present --prod
+    - run: npm run build --if-present --prod --base-href="/ui"
     #sync capacitor
     - run: npx cap sync
     #test
     - run: npm run test-headless
+    # Uploads the generated app
+    - uses: actions/upload-artifact@v3
+        with:
+          name: www 
+          path: www/
