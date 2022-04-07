@@ -30,8 +30,4 @@ jobs:
     - run: npx cap sync
     #test
     - run: npm run test-headless
-    # Uploads the generated app
-    - uses: actions/upload-artifact@v3
-        with:
-          name: www 
-          path: www/
+    
