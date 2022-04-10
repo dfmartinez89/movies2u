@@ -14,3 +14,4 @@ COPY nginx-custom.conf /etc/nginx/
 EXPOSE 8080
 RUN rm -rf /usr/share/nginx/html/*
 COPY --from=build /app/www/ /usr/share/nginx/html/
+#TODO save apk artifact
