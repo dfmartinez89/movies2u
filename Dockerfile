@@ -5,7 +5,7 @@ COPY package*.json /app/
 RUN npm install -g ionic
 RUN npm ci
 COPY ./ /app/
-RUN npm run build --if-present --prod
+RUN npm run build --prod
 #sync capacitor
 RUN npx cap sync
 # Stage 2, use the compiled app, ready for production with Nginx
