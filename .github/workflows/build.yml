@@ -24,14 +24,22 @@ jobs:
 
     steps:
 
-  # Test
+    # Install dependencies
+    - name: Install dependencies
+      run: npm ci
+
+    # Lint
+    - name: Linting our app
+      run: npm run lint
+
+    # Test
     - uses: actions/checkout@v2
       with:
         fetch-depth: 0
     - name: Test and coverage
       run: npm run test-headless
 
-  # Sonar Cloud
+    # Sonar Cloud
     - name: SonarCloud Scan
       if: success() || failure()
       uses: SonarSource/sonarcloud-github-action@master
@@ -45,7 +53,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-      #sync capacitor
+    # Sync capacitor
     - run: npx cap sync
     - run: npm i
     - run: npm run build --if-present --prod
