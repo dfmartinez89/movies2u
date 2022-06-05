@@ -21,32 +21,28 @@ jobs:
 
     steps:
 
-      - name: Use Node.js ${{ matrix.node-version }}
-      - uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node-version }}
-          cache: "npm"
+  # Test
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
+    - name: Install dependencies
+      run:  sudo npm install 
+    - name: Test and coverage
+      run: npm run test
 
-      - name: Install Ionic
-        run:  sudo npm install -g ionic 
+  # Sonar Cloud
+    - name: SonarCloud Scan
+      if: success() || failure()
+      uses: SonarSource/sonarcloud-github-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-      # Test
-      - name: Test and coverage
-        run: npm run test-headless
-
-      # Sonar Cloud
-      - name: SonarCloud Scan
-        if: success() || failure()
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-      - name: Sync capacitor and build
-        run: sudo npx cap sync
-
-      - name: Install dependencies
-        run: sudo npm i
-
-      - name: Build
-        run: sudo npm run build --if-present --prod
+    # Build node
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - run: npm i
+    - run: npm run build --if-present --prod
