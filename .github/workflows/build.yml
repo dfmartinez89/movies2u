@@ -23,15 +23,15 @@ jobs:
 
        # Build node
       - name: Checkout code
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v3
 
 
       - name: Use Node.js ${{ matrix.node-version }}
-      - uses: actions/setup-node@v3
+        uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-      - run: sudo npm i
+        run: sudo npm i
 
       # Test
       - uses: actions/checkout@v2
@@ -49,10 +49,10 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: Sync capacitor and build
-      - run: sudo npx cap sync
+        run: sudo npx cap sync
 
       - name: Install dependencies
-      - run: sudo npm i
+        run: sudo npm i
 
       - name: Build
-      - run: sudo npm run build --if-present --prod
+        run: sudo npm run build --if-present --prod
