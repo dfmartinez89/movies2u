@@ -26,7 +26,6 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: "npm"
-        run: sudo npm i
 
       - name: Install Ionic
         run:  sudo npm install -g ionic 
