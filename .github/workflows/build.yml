@@ -10,13 +10,10 @@ on:
       - develop
   pull_request:
     types: [opened, synchronize, reopened]
-    
 
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [16.x]
@@ -24,36 +21,30 @@ jobs:
 
     steps:
 
-    # Install dependencies
-    - name: Install dependencies
-      run: sudo npm i
+      # Test
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Linting our app
+        run: npm run lint
+      - name: Test and coverage
+        run: npm run test-headless
 
-    # Lint
-    - name: Linting our app
-      run: sudo npm run lint
+      # Sonar Cloud
+      - name: SonarCloud Scan
+        if: success() || failure()
+        uses: SonarSource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
-    # Test
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
-    - name: Test and coverage
-      run: sudo npm run test-headless
-
-    # Sonar Cloud
-    - name: SonarCloud Scan
-      if: success() || failure()
-      uses: SonarSource/sonarcloud-github-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
-        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-
-    # Build node
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-        cache: 'npm'
-    # Sync capacitor
-    - run: sudo npx cap sync
-    - run: sudo npm i
-    - run: sudo npm run build --if-present --prod
+      # Build node
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: "npm"
+      # Sync capacitor
+      - run: sudo npx cap sync
+      - run: sudo npm i
+      - run: sudo npm run build --if-present --prod
