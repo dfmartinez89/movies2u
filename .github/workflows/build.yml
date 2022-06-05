@@ -28,6 +28,9 @@ jobs:
           cache: "npm"
         run: sudo npm i
 
+      - name: Install Ionic
+        run:  sudo npm install -g ionic 
+
       # Test
       - name: Test and coverage
         run: npm run test-headless
