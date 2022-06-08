@@ -10,7 +10,7 @@ import { DetailsComponent } from '../details/details.component';
 })
 export class SlideshowBackdropComponent implements OnInit {
   @Input() movies: Movie[] = [];
-  slideOpts = {
+  swiperOpts = {
     slidesPerView: 1.2,
     freeMode: true,
     spaceBetween: -10,
