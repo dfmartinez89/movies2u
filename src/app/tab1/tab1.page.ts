@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MoviesService } from '../services/movies.service';
+import { Movie } from '../interfaces';
 
 @Component({
   selector: 'app-tab1',
@@ -7,9 +8,19 @@ import { MoviesService } from '../services/movies.service';
   styleUrls: ['tab1.page.scss'],
 })
 export class Tab1Page implements OnInit {
+  movies: Movie[] = [];
+
+  slideOpts = {
+    slidesPerView: 1.2,
+    freeMode: true,
+  };
   constructor(private moviesService: MoviesService) {}
 
   ngOnInit() {
-    this.moviesService.getMovies().subscribe(console.log);
+    this.moviesService.getMovies().subscribe((resp) => {
+      if (resp.success) {
+        this.movies = resp.data;
+      }
+    });
   }
 }
