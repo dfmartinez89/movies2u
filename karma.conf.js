@@ -35,7 +35,8 @@ module.exports = function (config) {
       subdir: '.',
       reporters: [
         { type: 'html' },
-        { type: 'text-summary' }
+        { type: 'text-summary' },
+        { type: 'lcov' } // lcov is a coverage reporter needed for sonarcloud
       ]
     },
     reporters: ['progress', 'kjhtml', 'coverage'],
