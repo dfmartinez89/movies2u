@@ -28,7 +28,7 @@ jobs:
     - name: Install dependencies
       run:  sudo npm install 
     - name: Test and coverage
-      run: npm run test
+      run: npm run test-headless
 
   # Sonar Cloud
     - name: SonarCloud Scan

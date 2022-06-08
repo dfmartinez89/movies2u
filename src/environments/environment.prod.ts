@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  apiUrl: 'https://movies2uexpress-xqmie7qm3a-uc.a.run.app/movies'
 };
