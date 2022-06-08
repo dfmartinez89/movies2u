@@ -11,6 +11,7 @@ export class SlideshowBackdropComponent implements OnInit {
   slideOpts = {
     slidesPerView: 1.2,
     freeMode: true,
+    spaceBetween: -10,
   };
   noImage = 'assets/img/no-image.jpg';
 
