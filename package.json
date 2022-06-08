@@ -1,13 +1,13 @@
 {
   "name": "movies2u",
   "version": "0.0.1",
-  "author": "Ionic Framework",
-  "homepage": "https://ionicframework.com/",
+  "author": "Damian Ferro",
+  "homepage": "https://github.com/thywillbedone/movies2u",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --watch=true",
     "test-headless": "ng test --watch=false --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e"
