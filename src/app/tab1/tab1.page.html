@@ -1,13 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title> Movies </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <ion-slides [options]="slideOpts">
-    <ion-slide *ngFor="let movie of movies" class="ion-margin">
-      <img [src]="movie.poster"/>
-    </ion-slide>
-  </ion-slides>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col> <h3>Movies</h3></ion-col>
+    </ion-row>
+  </ion-grid>
+  <app-slideshow-backdrop [movies]="movies"></app-slideshow-backdrop>
+
 </ion-content>
