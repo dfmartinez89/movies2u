@@ -25,7 +25,7 @@
       </ion-col>
       <ion-col size="3">
         <ion-chip color="primary" mode="ios" outline="true">
-          <ion-label> Rating: {{movie.rating}}</ion-label>
+          <ion-label>{{movie.rating}}</ion-label>
         </ion-chip>
       </ion-col>
     </ion-row>
@@ -46,3 +46,21 @@
     </ion-row>
   </ion-grid>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+  <ion-buttons slot="start">
+    <ion-button (click)="back()">
+      <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
+      <ion-label>Back</ion-label>
+    </ion-button>
+  </ion-buttons>
+
+  <ion-buttons slot="end">
+    <ion-button (click)="favorite()">
+      <ion-icon slot="start" name="star-outline"></ion-icon>
+      <ion-label>Favorite</ion-label>
+    </ion-button>
+  </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

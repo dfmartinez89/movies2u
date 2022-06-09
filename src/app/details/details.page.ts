@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Movie, Review } from '../interfaces';
 import { MoviesService } from '../services/movies.service';
 
@@ -13,7 +14,7 @@ export class DetailsPage implements OnInit {
   reviews: Review[];
   noImage = 'assets/img/no-image.jpg';
 
-  constructor(private moviesService: MoviesService) {}
+  constructor(private moviesService: MoviesService, private modalCtrl: ModalController) {}
 
   ngOnInit() {
     this.getMovieDetails(this.id);
@@ -24,5 +25,11 @@ export class DetailsPage implements OnInit {
       this.movie = resp.data;
       this.reviews = resp.data.reviews;
     });
+  }
+
+  favorite(){}
+
+  back(){
+    this.modalCtrl.dismiss();
   }
 }
