@@ -1,7 +1,7 @@
 import { IonicModule } from '@ionic/angular';
 import { NgModule, PACKAGE_ROOT_URL } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Tab1Page } from './tab1.page';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
@@ -18,7 +18,9 @@ import { PipesModule } from '../pipes/pipes.module';
     Tab1PageRoutingModule,
     SwiperModule,
     PipesModule,
+    ReactiveFormsModule
   ],
+  providers: [ReactiveFormsModule],
   declarations: [Tab1Page],
 })
 export class Tab1PageModule {}

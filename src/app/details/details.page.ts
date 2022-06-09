@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Movie, Review } from '../interfaces';
 import { MoviesService } from '../services/movies.service';
+import { ReviewsPage } from '../reviews/reviews.page';
 
 @Component({
   selector: 'app-details',
@@ -13,7 +14,16 @@ export class DetailsPage implements OnInit {
   movie: Movie;
   reviews: Review[];
 
-  constructor(private moviesService: MoviesService, private modalCtrl: ModalController) {}
+  swiperOpts = {
+    slidesPerView: 1.3,
+    freeMode: true,
+    spaceBetween: -5,
+  };
+
+  constructor(
+    private moviesService: MoviesService,
+    private modalCtrl: ModalController
+  ) {}
 
   ngOnInit() {
     this.getMovieDetails(this.id);
@@ -26,9 +36,16 @@ export class DetailsPage implements OnInit {
     });
   }
 
-  favorite(){}
+  async addReview(id: string) {
+    this.modalCtrl.dismiss();
+    const modal = await this.modalCtrl.create({
+      component: ReviewsPage,
+      componentProps: { id },
+    });
+    modal.present();
+  }
 
-  back(){
+  back() {
     this.modalCtrl.dismiss();
   }
 }

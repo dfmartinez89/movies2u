@@ -9,7 +9,7 @@ import { AppComponent } from './app.component';
 
 import { HttpClientModule } from '@angular/common/http';
 import { PipesModule } from './pipes/pipes.module';
-
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +19,9 @@ import { PipesModule } from './pipes/pipes.module';
     IonicModule.forRoot(),
     AppRoutingModule,
     HttpClientModule,
-    PipesModule
+    PipesModule,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],

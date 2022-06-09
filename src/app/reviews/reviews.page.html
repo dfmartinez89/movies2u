@@ -1,0 +1,90 @@
+<ion-header>
+  <ion-toolbar color="secondary">
+    <ion-title>Movie Review</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="reviewForm" (ngSubmit)="submit(reviewForm.value)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Author</ion-label>
+        <ion-input
+          autocapitalize
+          type="text"
+          formControlName="author"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.author">
+          <small
+            class="error-message"
+            *ngIf="reviewForm.get('author').hasError(error.type) && (reviewForm.get('author').dirty || reviewForm.get('author').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Description</ion-label>
+        <ion-input
+          type="text"
+          formControlName="description"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.description">
+          <small
+            class="error-message"
+            *ngIf="reviewForm.get('description').hasError(error.type) && (reviewForm.get('description').dirty || reviewForm.get('description').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Rating</ion-label>
+        <ion-input type="number" formControlName="rating" required></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.rating">
+          <small
+            class="error-message"
+            *ngIf="reviewForm.get('rating').hasError(error.type) && (reviewForm.get('rating').dirty || reviewForm.get('rating').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Location</ion-label>
+        <ion-input
+          type="text"
+          formControlName="reviewLocation"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.reviewLocation">
+          <small
+            class="error-message"
+            *ngIf="reviewForm.get('reviewLocation').hasError(error.type) && (reviewForm.get('reviewLocation').dirty || reviewForm.get('reviewLocation').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-button type="submit" expand="block" [disabled]="!reviewForm.valid">
+        <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+      </ion-button>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="back()">
+        <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
+        <ion-label>Back</ion-label>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>
