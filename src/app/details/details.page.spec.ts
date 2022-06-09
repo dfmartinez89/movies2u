@@ -1,37 +1,29 @@
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { IonicModule } from '@ionic/angular';
+
+import { DetailsPage } from './details.page';
 import { HttpClient } from '@angular/common/http';
+
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { IonicModule } from '@ionic/angular';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 import { MoviesService } from '../services/movies.service';
 
-
-import { Tab1Page } from './tab1.page';
-
-const movies = [];
-
-describe('Tab1Page', () => {
-  let component: Tab1Page;
-  let fixture: ComponentFixture<Tab1Page>;
+xdescribe('DetailsPage', () => {
+  let component: DetailsPage;
+  let fixture: ComponentFixture<DetailsPage>;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let moviesService: MoviesService;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [Tab1Page],
-      imports: [
-        IonicModule.forRoot(),
-        ExploreContainerComponentModule,
-        HttpClientTestingModule,
-      ],
-      providers: [MoviesService],
+      declarations: [DetailsPage],
+      imports: [IonicModule.forRoot(), HttpClientTestingModule],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Tab1Page);
+    fixture = TestBed.createComponent(DetailsPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
     httpClient = TestBed.inject(HttpClient);
@@ -39,13 +31,14 @@ describe('Tab1Page', () => {
     moviesService = TestBed.inject(MoviesService);
   }));
 
-  xit('should create', () => {
+  it('should create', () => {
     expect(component).toBeTruthy();
   });
-  xit('should call moviesService', () => {
+
+  it('should call moviesService', () => {
     const moviesServiceSpy = spyOn(
       moviesService,
-      'getMovies'
+      'getMovieDetails'
     ).and.callThrough();
 
     component.ngOnInit();
