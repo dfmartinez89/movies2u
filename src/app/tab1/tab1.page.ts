@@ -17,8 +17,6 @@ export class Tab1Page implements OnInit {
     spaceBetween: -10,
   };
 
-  noImage = 'assets/img/no-image.jpg';
-
   constructor(
     private moviesService: MoviesService,
     private modalCtrl: ModalController

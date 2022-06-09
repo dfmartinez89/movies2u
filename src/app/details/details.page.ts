@@ -12,7 +12,6 @@ export class DetailsPage implements OnInit {
   @Input() id;
   movie: Movie;
   reviews: Review[];
-  noImage = 'assets/img/no-image.jpg';
 
   constructor(private moviesService: MoviesService, private modalCtrl: ModalController) {}
 

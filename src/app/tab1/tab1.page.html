@@ -5,13 +5,13 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content fullscreen>
+<ion-content [fullscreen]="true">
   <swiper [config]="swiperOpts">
     <ng-template swiperSlide *ngFor="let pair of movies | pair">
       <ion-row>
         <ion-col size="12" *ngFor="let movie of pair">
           <ion-card (click)="getDetails(movie._id)">
-            <img [src]="movie.poster" [alt]="noImage" />
+            <img [src]="movie.poster" alt="" />
           </ion-card>
         </ion-col>
       </ion-row>

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { GetAllMovies, Movie } from '../interfaces';
+import { GetAllMovies, Movie, SearchMovies } from '../interfaces';
 import { GetMovieDetails } from '../interfaces/index';
 
 const url = environment.apiUrl;
@@ -18,5 +18,9 @@ export class MoviesService {
 
   getMovieDetails(id: string) {
     return this.http.get<GetMovieDetails>(`${url}/${id}`);
+  }
+
+  searchMovies(key: string, value: string) {
+    return this.http.get<SearchMovies>(`${environment.apiSearchUrl}?${key}=${value}`);
   }
 }
