@@ -1,9 +1,20 @@
-<ion-content>
-  <ion-grid fixed>
-    <ion-row>
-      <ion-col> <h3>Movies</h3></ion-col>
-    </ion-row>
-  </ion-grid>
-  <app-slideshow-backdrop [movies]="movies"></app-slideshow-backdrop>
-
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>
+     Movies
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true">
+  <swiper [config]="swiperOpts">
+    <ng-template swiperSlide *ngFor="let pair of movies | pair">
+      <ion-row>
+        <ion-col size="12" *ngFor="let movie of pair">
+          <ion-card (click)="getDetails(movie._id)">
+            <img [src]="movie.poster" alt="" />
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ng-template>
+  </swiper>
 </ion-content>
