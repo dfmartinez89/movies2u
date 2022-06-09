@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActionSheetController, ModalController } from '@ionic/angular';
-import { Movie, Review } from '../interfaces';
-import { MoviesService } from '../services/movies.service';
+import { Movie, Review } from '../../interfaces';
+import { MoviesService } from '../../services/movies.service';
 import { ReviewsPage } from '../reviews/reviews.page';
 
 @Component({

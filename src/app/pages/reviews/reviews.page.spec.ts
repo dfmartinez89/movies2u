@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
 
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 describe('ReviewsPage', () => {
   let component: ReviewsPage;

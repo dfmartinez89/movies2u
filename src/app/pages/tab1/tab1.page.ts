@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { MoviesService } from '../services/movies.service';
-import { Movie } from '../interfaces';
+import { MoviesService } from '../../services/movies.service';
+import { Movie } from '../../interfaces';
 import { ModalController } from '@ionic/angular';
 import { DetailsPage } from '../details/details.page';
 

@@ -6,7 +6,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 import { Tab2Page } from './tab2.page';
 

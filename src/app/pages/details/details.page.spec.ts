@@ -8,7 +8,7 @@ import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 xdescribe('DetailsPage', () => {
   let component: DetailsPage;

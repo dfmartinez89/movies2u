@@ -7,7 +7,7 @@ import { ExploreContainerComponentModule } from '../explore-container/explore-co
 
 import { Tab1PageRoutingModule } from './tab1-routing.module';
 import { SwiperModule } from 'swiper/angular';
-import { PipesModule } from '../pipes/pipes.module';
+import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [

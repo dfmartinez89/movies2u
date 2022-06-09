@@ -6,7 +6,7 @@ import {
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
-import { MoviesService } from '../services/movies.service';
+import { MoviesService } from '../../services/movies.service';
 
 
 import { Tab1Page } from './tab1.page';
