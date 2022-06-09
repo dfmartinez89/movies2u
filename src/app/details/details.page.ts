@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Movie, Review } from '../interfaces';
 import { MoviesService } from '../services/movies.service';
 import { ReviewsPage } from '../reviews/reviews.page';
@@ -13,6 +13,7 @@ export class DetailsPage implements OnInit {
   @Input() id;
   movie: Movie;
   reviews: Review[];
+  review: Review;
 
   swiperOpts = {
     slidesPerView: 1.3,
@@ -22,7 +23,8 @@ export class DetailsPage implements OnInit {
 
   constructor(
     private moviesService: MoviesService,
-    private modalCtrl: ModalController
+    private modalCtrl: ModalController,
+    private actionSheetCtrl: ActionSheetController
   ) {}
 
   ngOnInit() {
@@ -47,5 +49,29 @@ export class DetailsPage implements OnInit {
 
   back() {
     this.modalCtrl.dismiss();
+  }
+
+  async onOpenMenu(id) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Options',
+      buttons: [
+        {
+          text: 'Delete',
+          role: 'destructive',
+          icon: 'trash',
+          handler: () => {
+            this.deleteReview(id);
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
+  }
+
+  deleteReview(reviewid: string) {
+    this.moviesService.deleteReview(this.id, reviewid).subscribe((resp) => {
+      console.log(resp,reviewid);
+    });
   }
 }

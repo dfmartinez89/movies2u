@@ -27,4 +27,8 @@ export class MoviesService {
   addReview(movieId: string, review: Review) {
     return this.http.post<Review>(`${url}/${movieId}/reviews`, review);
   }
+
+  deleteReview(movieId: string, reviewId: string) {
+    return this.http.delete(`${url}/${movieId}/reviews/${reviewId}`);
+  }
 }
