@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
-import { FormBuilder } from '@angular/forms';
+import { UntypedFormBuilder } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { ReviewsPage } from './reviews.page';
@@ -21,7 +21,7 @@ describe('ReviewsPage', () => {
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ ReviewsPage ],
-      providers: [FormBuilder],
+      providers: [UntypedFormBuilder],
       imports: [IonicModule.forRoot(),HttpClientTestingModule]
     }).compileComponents();
 

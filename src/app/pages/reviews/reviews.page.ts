@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
   Validators,
 } from '@angular/forms';
 import { MoviesService } from '../../services/movies.service';
@@ -15,7 +15,7 @@ import { MoviesService } from '../../services/movies.service';
 })
 export class ReviewsPage implements OnInit {
   @Input() id;
-  reviewForm: FormGroup;
+  reviewForm: UntypedFormGroup;
 
   public errorMessages = {
     reviewLocation: [
@@ -59,13 +59,13 @@ export class ReviewsPage implements OnInit {
 
   constructor(
     private modalCtrl: ModalController,
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private moviesService: MoviesService
   ) {}
 
   ngOnInit() {
     this.reviewForm = this.formBuilder.group({
-      author: new FormControl(
+      author: new UntypedFormControl(
         '',
         Validators.compose([
           Validators.minLength(3),
@@ -73,11 +73,11 @@ export class ReviewsPage implements OnInit {
           Validators.required,
         ])
       ),
-      rating: new FormControl(
+      rating: new UntypedFormControl(
         '',
         Validators.compose([Validators.pattern('[1-5]'), Validators.required])
       ),
-      description: new FormControl(
+      description: new UntypedFormControl(
         '',
         Validators.compose([
           Validators.minLength(4),
@@ -85,7 +85,7 @@ export class ReviewsPage implements OnInit {
           Validators.required,
         ])
       ),
-      reviewLocation: new FormControl(
+      reviewLocation: new UntypedFormControl(
         '',
         Validators.compose([
           Validators.minLength(5),

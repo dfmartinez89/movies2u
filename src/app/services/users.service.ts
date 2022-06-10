@@ -3,6 +3,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
+import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
+import { BehaviorSubject } from 'rxjs';
 
 const url = environment.apiLoginUrl;
 
@@ -11,13 +13,18 @@ const url = environment.apiLoginUrl;
 })
 export class UsersService {
   token: string = null;
+  ready = false;
+  private storageReady = new BehaviorSubject(false);
 
   constructor(private http: HttpClient, private storage: Storage) {
     this.init();
   }
 
-  init() {
-    this.storage.create();
+  async init() {
+    await this.storage.defineDriver(CordovaSQLiteDriver);
+    await this.storage.create();
+    this.storageReady.next(true);
+    this.ready = true;
   }
 
   login(email: string, password: string) {
@@ -34,13 +41,16 @@ export class UsersService {
   }
 
   async saveToken(token: string) {
-    this.token = token;
-    await this.storage.set('token', this.token);
+    if (this.ready) {
+      this.token = token;
+      await this.storage.set('token', this.token);
+    }
+
     console.log(this.storage.get('token'));
   }
 
   async getTokenFromStorage() {
-    const savedToken: string = await this.storage.get('token') || [];
+    const savedToken: string = (await this.storage.get('token')) || [];
     return savedToken;
   }
 }
