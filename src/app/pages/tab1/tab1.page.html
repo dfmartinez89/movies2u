@@ -6,7 +6,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content [fullscreen]="true">
-  <swiper [config]="swiperOpts">
+  <swiper [config]="swiperOpts" class="image-slide">
     <ng-template swiperSlide *ngFor="let pair of movies | pair">
       <ion-row>
         <ion-col size="12" *ngFor="let movie of pair">

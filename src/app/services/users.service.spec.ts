@@ -4,22 +4,24 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
+import { Storage } from '@ionic/storage-angular';
 
-import { MoviesService } from './movies.service';
 
-describe('MoviesService', () => {
+import { UsersService } from './users.service';
+
+describe('UsersService', () => {
+  let service: UsersService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
-  let service: MoviesService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [MoviesService],
+      providers: [UsersService, Storage],
     });
     httpClient = TestBed.inject(HttpClient);
     httpTestingController = TestBed.inject(HttpTestingController);
-    service = TestBed.inject(MoviesService);
+    service = TestBed.inject(UsersService);
   });
 
   afterEach(() => {
@@ -27,30 +29,23 @@ describe('MoviesService', () => {
     httpTestingController.verify();
   });
 
-  it('should create', () => {
+  it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
   it('should make api call', () => {
     const mockRes = [
       {
-        success: 'true',
-        count: 3,
-        data: [1,2,3],
+        email: 'hola@user.com',
+        token: 'zI1NiIsInR5cCI6IkpXVCJ9',
+        _id: [1,2,3],
       },
     ];
-    service.getMovies().subscribe((res) => {
-      expect(res).toBeTruthy();
-      expect(res).toHaveSize(1);
-      expect(res[0].success).toBeTruthy();
-      expect(res[0].count).toBe(3);
-      expect(res[0].data).toEqual([1,2,3]);
-    });
+    service.login('hola@user.com', '123');
 
     const mockReq = httpTestingController.expectOne(
-      'http://localhost:3000/movies'
+      'http://localhost:3000/users/login'
     );
-    expect(mockReq.request.method).toEqual('GET');
+    expect(mockReq.request.method).toEqual('POST');
     mockReq.flush(mockRes);
   });
 });

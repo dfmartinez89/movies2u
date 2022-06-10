@@ -5,8 +5,8 @@
 export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/movies',
-  apiSearchUrl: 'http://localhost:3000/search'
-
+  apiSearchUrl: 'http://localhost:3000/search',
+  apiLoginUrl: 'http://localhost:3000/users/login',
 };
 
 /*
