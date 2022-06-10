@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/dot-notation */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -5,6 +6,7 @@ import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { BehaviorSubject } from 'rxjs';
+import { LoginResponse } from '../interfaces';
 
 const url = environment.apiLoginUrl;
 
@@ -29,24 +31,34 @@ export class UsersService {
 
   login(email: string, password: string) {
     const data = { email, password };
-    this.http.post(url, data).subscribe((resp) => {
-      console.log(resp);
-      if (resp['token']) {
-        this.saveToken(resp['token']);
-      } else {
-        this.token = null;
-        this.storage.clear();
-      }
+
+    return new Promise((resolve) => {
+      this.http.post<LoginResponse>(url, data).subscribe(
+        (resp) => {
+          if (resp.success) {
+            this.saveToken(resp.token);
+            resolve(true);
+          }
+        },
+        (err) => {
+          this.token = null;
+          this.storage.clear();
+          resolve(false);
+        }
+      );
     });
   }
 
   async saveToken(token: string) {
-    if (this.ready) {
-      this.token = token;
-      await this.storage.set('token', this.token);
-    }
-
-    console.log(this.storage.get('token'));
+    this.token = token;
+    await this.storage.set('token', this.token).then(
+      () => {
+        console.log(this.getTokenFromStorage());
+      },
+      (err) => {
+        console.log('no guardado storage');
+      }
+    );
   }
 
   async getTokenFromStorage() {
