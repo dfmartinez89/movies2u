@@ -7,6 +7,7 @@ export const environment = {
   apiUrl: 'http://localhost:3000/movies',
   apiSearchUrl: 'http://localhost:3000/search',
   apiLoginUrl: 'http://localhost:3000/users/login',
+  baseUrl: 'http://localhost:3000',
 };
 
 /*

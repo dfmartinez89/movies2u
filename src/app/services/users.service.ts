@@ -1,24 +1,35 @@
+/* eslint-disable @typescript-eslint/quotes */
+/* eslint-disable @typescript-eslint/naming-convention */
+/* eslint-disable quote-props */
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable @typescript-eslint/dot-notation */
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { BehaviorSubject } from 'rxjs';
 import { LoginResponse } from '../interfaces';
+import { NavController } from '@ionic/angular';
 
 const url = environment.apiLoginUrl;
+const baseurl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root',
 })
 export class UsersService {
   token: string = null;
+  localToken = 'movies2u_db/_ionickv/token';
+
   ready = false;
   private storageReady = new BehaviorSubject(false);
 
-  constructor(private http: HttpClient, private storage: Storage) {
+  constructor(
+    private http: HttpClient,
+    private storage: Storage,
+    private navCtrl: NavController
+  ) {
     this.init();
   }
 
@@ -51,7 +62,7 @@ export class UsersService {
 
   async saveToken(token: string) {
     this.token = token;
-    await this.storage.set('token', this.token).then(
+    await this.storage.set(this.localToken, this.token).then(
       () => {
         console.log(this.getTokenFromStorage());
       },
@@ -62,7 +73,14 @@ export class UsersService {
   }
 
   async getTokenFromStorage() {
-    const savedToken: string = (await this.storage.get('token')) || [];
-    return savedToken;
+    this.token = await this.storage.get(this.localToken) || null;
+    return this.token;
+  }
+
+  async validateToken() {
+    await this.getTokenFromStorage();
+    if (!this.token) {
+      this.navCtrl.navigateRoot('/login');
+    }
   }
 }

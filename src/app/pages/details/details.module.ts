@@ -5,10 +5,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 
 import { DetailsPageRoutingModule } from './details-routing.module';
-
+import { PipesModule } from '../../pipes/pipes.module';
 import { DetailsPage } from './details.page';
 import { SwiperModule } from 'swiper/angular';
-import { PipesModule } from '../../pipes/pipes.module';
 
 @NgModule({
   imports: [
@@ -18,9 +17,9 @@ import { PipesModule } from '../../pipes/pipes.module';
     DetailsPageRoutingModule,
     SwiperModule,
     PipesModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
-  providers: [ReactiveFormsModule],
-  declarations: [DetailsPage]
+  providers: [ReactiveFormsModule, PipesModule],
+  declarations: [DetailsPage],
 })
 export class DetailsPageModule {}

@@ -7,14 +7,16 @@ const routes: Routes = [
     loadChildren: () =>
       import('./pages/tabs/tabs.module').then((m) => m.TabsPageModule),
   },
-  // {
-  //   path: 'details',
-  //   loadChildren: () => import('./pages/details/details.module').then( m => m.DetailsPageModule)
-  // },
-  // {
-  //   path: 'reviews',
-  //   loadChildren: () => import('./pages/reviews/reviews.module').then( m => m.ReviewsPageModule)
-  // },
+  {
+    path: 'details',
+    loadChildren: () =>
+      import('./pages/details/details.module').then((m) => m.DetailsPageModule),
+  },
+  {
+    path: 'reviews',
+    loadChildren: () =>
+      import('./pages/reviews/reviews.module').then((m) => m.ReviewsPageModule),
+  },
   {
     path: 'login',
     loadChildren: () =>

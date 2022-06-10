@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { NavController } from '@ionic/angular';
+import { HandlerService } from 'src/app/services/handler.service';
 import { UsersService } from 'src/app/services/users.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class LoginPage implements OnInit {
     password: '123456',
   };
 
-  constructor(private usersService: UsersService, private navCtrl: NavController) {}
+  constructor(private usersService: UsersService, private navCtrl: NavController, private handlerService: HandlerService) {}
 
   ngOnInit() {}
 
@@ -30,7 +31,8 @@ export class LoginPage implements OnInit {
       //browse tabs
       this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
     } else {
-      //mostrar error
+      //show alert
+      this.handlerService.infoAlert('Name or password incorrect');
     }
   }
 }

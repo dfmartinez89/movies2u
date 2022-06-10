@@ -70,8 +70,9 @@ export class DetailsPage implements OnInit {
   }
 
   deleteReview(reviewid: string) {
-    this.moviesService.deleteReview(this.id, reviewid).subscribe((resp) => {
-      console.log(resp,reviewid);
-    });
+     this.moviesService.deleteReview(this.id, reviewid).subscribe(() => {
+      console.log('deleted', reviewid);
+      this.modalCtrl.dismiss();
+     });
   }
 }
