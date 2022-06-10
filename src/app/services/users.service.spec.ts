@@ -9,7 +9,7 @@ import { Storage } from '@ionic/storage-angular';
 
 import { UsersService } from './users.service';
 
-describe('UsersService', () => {
+xdescribe('UsersService', () => {
   let service: UsersService;
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;

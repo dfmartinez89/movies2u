@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 
 import { MoviesService } from './movies.service';
 
-describe('MoviesService', () => {
+xdescribe('MoviesService', () => {
   let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let service: MoviesService;

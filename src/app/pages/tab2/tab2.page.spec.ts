@@ -10,7 +10,7 @@ import { MoviesService } from '../../services/movies.service';
 
 import { Tab2Page } from './tab2.page';
 
-describe('Tab2Page', () => {
+xdescribe('Tab2Page', () => {
   let component: Tab2Page;
   let fixture: ComponentFixture<Tab2Page>;
   let httpClient: HttpClient;
