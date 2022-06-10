@@ -1,0 +1,98 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title> New Movie </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form [formGroup]="movieForm" (ngSubmit)="submit(movieForm.value)">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Title</ion-label>
+        <ion-input
+          autocapitalize
+          type="text"
+          formControlName="title"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.title">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('title').hasError(error.type) && (movieForm.get('title').dirty || movieForm.get('title').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Year</ion-label>
+        <ion-input type="text" formControlName="year" required></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.year">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('year').hasError(error.type) && (movieForm.get('year').dirty || movieForm.get('year').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Rating</ion-label>
+        <ion-input type="number" formControlName="rating" required></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.rating">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('rating').hasError(error.type) && (movieForm.get('rating').dirty || movieForm.get('rating').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Location</ion-label>
+        <ion-input
+          type="text"
+          formControlName="geoLocation"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.geoLocation">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('geoLocation').hasError(error.type) && (movieForm.get('geoLocation').dirty || movieForm.get('geoLocation').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Poster</ion-label>
+        <ion-input type="text" formControlName="poster" required></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.poster">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('poster').hasError(error.type) && (movieForm.get('poster').dirty || movieForm.get('poster').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-button type="submit" expand="block" [disabled]="!movieForm.valid">
+        <ion-icon slot="end" name="cloud-upload-outline"></ion-icon>
+      </ion-button>
+    </ion-list>
+  </form>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/main/tabs/tab1"></ion-back-button>
+      </ion-buttons>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-footer>

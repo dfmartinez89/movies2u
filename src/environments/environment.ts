@@ -4,9 +4,10 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:3000/movies',
-  apiSearchUrl: 'http://localhost:3000/search'
-
+   apiUrl: 'https://movies2uexpress-xqmie7qm3a-uc.a.run.app/movies',
+  apiSearchUrl: 'https://movies2uexpress-xqmie7qm3a-uc.a.run.app/search',
+  apiLoginUrl: 'https://movies2uexpress-xqmie7qm3a-uc.a.run.app/users/login',
+  baseUrl: 'https://movies2uexpress-xqmie7qm3a-uc.a.run.app',
 };
 
 /*
