@@ -7,9 +7,9 @@
 <ion-content [fullscreen]="true" class="ion-no-margin ion-no-border">
   <ion-grid>
     <ion-row>
-      <ion-col size="12">
+      <ion-col size="12" *ngIf="movie.poster">
         <ion-card>
-          <ion-label *ngIf="movie" class="title">
+          <ion-label class="title">
             <h1>{{movie.title}}</h1>
           </ion-label>
           <img [src]="movie.poster" alt="" />
