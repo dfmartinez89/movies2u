@@ -25,14 +25,10 @@ export class DetailsPage implements OnInit {
     private moviesService: MoviesService,
     private modalCtrl: ModalController,
     private actionSheetCtrl: ActionSheetController
-  ) { }
+  ) {}
 
   ngOnInit() {
-    this.getMovieDetails(this.id);
-  }
-
-  getMovieDetails(id: string) {
-    this.moviesService.getMovieDetails(id).subscribe((resp) => {
+    this.moviesService.getMovieDetails(this.id).subscribe((resp) => {
       this.movie = resp.data;
       this.reviews = resp.data.reviews;
     });
@@ -69,15 +65,16 @@ export class DetailsPage implements OnInit {
     await actionSheet.present();
   }
 
-  deleteReview(reviewid: string) {
-    this.moviesService.deleteReview(this.id, reviewid).subscribe(() => {
-      console.log('deleted', reviewid);
+  async deleteReview(reviewid: string) {
+    await (
+      await this.moviesService.deleteReview(this.id, reviewid)
+    ).subscribe(() => {
       this.modalCtrl.dismiss();
     });
   }
 
-  deleteMovie(id) {
-    this.moviesService.deleteMovie(id).subscribe(() => {
+  async deleteMovie(id) {
+    (await this.moviesService.deleteMovie(id)).subscribe(() => {
       console.log('deleted', id);
       this.modalCtrl.dismiss();
     });

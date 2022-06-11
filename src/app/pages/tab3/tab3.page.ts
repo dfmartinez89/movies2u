@@ -5,7 +5,7 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import {  NavController } from '@ionic/angular';
 import { MoviesService } from 'src/app/services/movies.service';
 
 @Component({
@@ -60,7 +60,7 @@ export class Tab3Page implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private modalCtrl: ModalController,
+    private navCtrl: NavController,
     private moviesService: MoviesService
   ) {}
   ngOnInit() {
@@ -107,9 +107,11 @@ export class Tab3Page implements OnInit {
   /**
    * submit the movie
    */
-  submit(value) {
-    this.moviesService.addMovie(value).subscribe(() => {
-      this.modalCtrl.dismiss();
+  async submit(value) {
+    await (
+      await this.moviesService.addMovie(value)
+    ).subscribe(() => {
+      this.navCtrl.navigateRoot('/main/tabs/tab1');
     });
   }
 }

@@ -28,19 +28,17 @@ export class MoviesService {
     );
   }
 
-  addMovie(movie: Movie) {
-    // const token = this.usersService.getTokenFromStorage();
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTI5YmZhZGMyZGQ0YzEzNWYxNDhjZiIsImlhdCI6MTY1NDg3MjI5OSwiZXhwIjoxNjU3NDY0Mjk5fQ.YXGNzPKV2a9xTu8dcfIXFYniUsl58iLEJYbFLZC9OwU';
+ async addMovie(movie: Movie) {
+    const token = await this.usersService.getTokenFromStorage();
+
     return this.http.post<Movie>(url, movie, {
       headers: new HttpHeaders({}).set('Authorization', `Bearer ${token}`),
     });
   }
 
-  deleteMovie(movieId: string) {
-    // this.usersService.getTokenFromStorage().then((resp) => {
-    //   console.log(resp);
-    // });
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTI5YmZhZGMyZGQ0YzEzNWYxNDhjZiIsImlhdCI6MTY1NDg3MjI5OSwiZXhwIjoxNjU3NDY0Mjk5fQ.YXGNzPKV2a9xTu8dcfIXFYniUsl58iLEJYbFLZC9OwU';
+  async deleteMovie(movieId: string) {
+    const token = await this.usersService.getTokenFromStorage();
+
     return this.http.delete(`${url}/${movieId}`, {
       headers: new HttpHeaders({}).set('Authorization', `Bearer ${token}`),
     });
@@ -50,11 +48,8 @@ export class MoviesService {
     return this.http.post<Review>(`${url}/${movieId}/reviews`, review);
   }
 
-  deleteReview(movieId: string, reviewId: string) {
-    this.usersService.getTokenFromStorage().then((resp) => {
-      console.log(resp);
-    });
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyYTI5YmZhZGMyZGQ0YzEzNWYxNDhjZiIsImlhdCI6MTY1NDg3MjI5OSwiZXhwIjoxNjU3NDY0Mjk5fQ.YXGNzPKV2a9xTu8dcfIXFYniUsl58iLEJYbFLZC9OwU';
+  async deleteReview(movieId: string, reviewId: string) {
+    const token = await this.usersService.getTokenFromStorage();
     return this.http.delete(`${url}/${movieId}/reviews/${reviewId}`, {
       headers: new HttpHeaders({}).set('Authorization', `Bearer ${token}`),
     });
