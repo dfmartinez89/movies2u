@@ -20,7 +20,7 @@ const baseurl = environment.baseUrl;
 })
 export class UsersService {
   token: string = null;
-  localToken = 'movies2u_db/_ionickv/token';
+  localToken = 'movies2u_db/_ionickv/movies2u_db/_ionickv/token';
 
   ready = false;
   private storageReady = new BehaviorSubject(false);
@@ -49,11 +49,13 @@ export class UsersService {
           if (resp.success) {
             this.saveToken(resp.token);
             resolve(true);
+          } else {
+            this.deleteToken();
+            resolve(false);
           }
         },
         (err) => {
-          this.token = null;
-          this.storage.clear();
+          this.deleteToken();
           resolve(false);
         }
       );
@@ -62,25 +64,24 @@ export class UsersService {
 
   async saveToken(token: string) {
     this.token = token;
-    await this.storage.set(this.localToken, this.token).then(
-      () => {
-        console.log(this.getTokenFromStorage());
-      },
-      (err) => {
-        console.log('no guardado storage');
-      }
-    );
+    await this.storage.set('token', this.token);
   }
 
   async getTokenFromStorage() {
-    this.token = await this.storage.get(this.localToken) || null;
+    this.token = (await this.storage.get('token')) || null;
     return this.token;
   }
 
-  async validateToken() {
+  async validateToken(): Promise<boolean> {
     await this.getTokenFromStorage();
     if (!this.token) {
       this.navCtrl.navigateRoot('/login');
+      return Promise.resolve(false);
     }
+  }
+
+  async deleteToken() {
+    this.token = null;
+    await this.storage.clear();
   }
 }

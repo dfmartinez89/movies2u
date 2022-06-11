@@ -23,6 +23,10 @@ const routes: Routes = [
       import('./pages/login/login.module').then((m) => m.LoginPageModule),
   },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
+  {
+    path: 'edit-movie',
+    loadChildren: () => import('./pages/edit-movie/edit-movie.module').then( m => m.EditMoviePageModule)
+  },
 ];
 @NgModule({
   imports: [

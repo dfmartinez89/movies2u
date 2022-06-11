@@ -13,13 +13,10 @@
   <form [formGroup]="movieForm" (ngSubmit)="submit(movieForm.value)">
     <ion-list>
       <ion-item>
-        <ion-label position="floating">Title</ion-label>
-        <ion-input
-          autocapitalize
-          type="text"
-          formControlName="title"
-          required
-        ></ion-input>
+        <ion-label position="fixed">Title</ion-label>
+        <ion-input autocapitalize type="text" formControlName="title" required [placeholder]=" movie.title"
+          ></ion-input
+        >
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.title">
@@ -31,13 +28,10 @@
         </ng-container>
       </div>
       <ion-item>
-        <ion-label position="floating">Genre</ion-label>
-        <ion-input
-          autocapitalize
-          type="text"
-          formControlName="genre"
-          required
-        ></ion-input>
+        <ion-label position="fixed">Genre</ion-label>
+        <ion-input autocapitalize type="text" formControlName="genre" required [placeholder]=" movie.genre"
+          ></ion-input
+        >
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.genre">
@@ -49,8 +43,10 @@
         </ng-container>
       </div>
       <ion-item>
-        <ion-label position="floating">Year</ion-label>
-        <ion-input type="text" formControlName="year" required></ion-input>
+        <ion-label position="fixed">Year</ion-label>
+        <ion-input type="text" formControlName="year" required [placeholder]=" movie.year"
+          ></ion-input
+        >
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.year">
@@ -62,8 +58,10 @@
         </ng-container>
       </div>
       <ion-item>
-        <ion-label position="floating">Rating</ion-label>
-        <ion-input type="number" formControlName="rating" required></ion-input>
+        <ion-label position="fixed">Rating</ion-label>
+        <ion-input type="number" formControlName="rating" required [placeholder]=" movie.rating"
+          ></ion-input
+        >
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.rating">
@@ -75,8 +73,8 @@
         </ng-container>
       </div>
       <ion-item>
-        <ion-label position="floating">Location</ion-label>
-        <ion-input type="text" formControlName="location" required></ion-input>
+        <ion-label position="fixed">Location</ion-label>
+        <ion-input type="text" formControlName="location" required [placeholder]="movie.geoLocation.formattedLocation"></ion-input>
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.location">
@@ -88,8 +86,8 @@
         </ng-container>
       </div>
       <ion-item>
-        <ion-label position="floating">Poster</ion-label>
-        <ion-input type="text" formControlName="poster" required></ion-input>
+        <ion-label position="fixed">Poster</ion-label>
+        <ion-input type="text" formControlName="poster" required [placeholder]=" movie.poster"></ion-input>
       </ion-item>
       <div>
         <ng-container *ngFor="let error of errorMessages.poster">
@@ -134,9 +132,10 @@
 <ion-footer>
   <ion-toolbar>
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/main/tabs/tab1">
+      <ion-button (click)="back()">
         <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
-      </ion-back-button>
+        <ion-label>Back</ion-label>
+      </ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-footer>

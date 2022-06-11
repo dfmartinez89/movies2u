@@ -42,10 +42,10 @@
 
   <ion-grid fixed>
     <ion-row>
-      <ion-col *ngIf="error?.status == 404">
+      <ion-col *ngIf="error">
         <ion-card>
           <ion-card-header>
-            <ion-card-subtitle>{{error.error.message}}</ion-card-subtitle>
+            <ion-card-subtitle>{{error.message}}</ion-card-subtitle>
           </ion-card-header>
         </ion-card>
       </ion-col>
