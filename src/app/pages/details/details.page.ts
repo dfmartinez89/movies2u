@@ -25,7 +25,7 @@ export class DetailsPage implements OnInit {
     private moviesService: MoviesService,
     private modalCtrl: ModalController,
     private actionSheetCtrl: ActionSheetController
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getMovieDetails(this.id);
@@ -70,9 +70,34 @@ export class DetailsPage implements OnInit {
   }
 
   deleteReview(reviewid: string) {
-     this.moviesService.deleteReview(this.id, reviewid).subscribe(() => {
+    this.moviesService.deleteReview(this.id, reviewid).subscribe(() => {
       console.log('deleted', reviewid);
       this.modalCtrl.dismiss();
-     });
+    });
+  }
+
+  deleteMovie(id) {
+    this.moviesService.deleteMovie(id).subscribe(() => {
+      console.log('deleted', id);
+      this.modalCtrl.dismiss();
+    });
+  }
+
+  async onOpenDeleteMenu(id) {
+    const actionSheet = await this.actionSheetCtrl.create({
+      header: 'Options',
+      buttons: [
+        {
+          text: 'Delete the movie',
+          role: 'destructive',
+          icon: 'trash',
+          handler: () => {
+            this.deleteMovie(id);
+          },
+        },
+      ],
+    });
+
+    await actionSheet.present();
   }
 }

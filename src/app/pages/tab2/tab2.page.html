@@ -5,7 +5,8 @@
     </ion-title>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Search Movie" animated inputmode="text" (ionChange)="onSearchChange($event)" [debounce]="500"></ion-searchbar>
+    <ion-searchbar placeholder="Search Movie" animated inputmode="text" (ionChange)="onSearchChange($event)"
+      [debounce]="500"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -17,36 +18,45 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-<ion-list>
-  <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
-    <ion-item>
-      <ion-label>Title</ion-label>
-      <ion-radio value="title" checked></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Year</ion-label>
-      <ion-radio value="year"></ion-radio>
-    </ion-item>
-    <ion-item>
-      <ion-label>Genre</ion-label>
-      <ion-radio value="genre"></ion-radio>
-    </ion-item>
-  </ion-radio-group>
-</ion-list>
+  <ion-list>
+    <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
+      <ion-item>
+        <ion-label>Title</ion-label>
+        <ion-radio value="title" checked></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Year</ion-label>
+        <ion-radio value="year"></ion-radio>
+      </ion-item>
+      <ion-item>
+        <ion-label>Genre</ion-label>
+        <ion-radio value="genre"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
 
-<ion-grid fixed>
-  <ion-row>
-    <ion-col size="6" *ngFor="let movie of movies">
-      <ion-card (click)="getDetails(movie._id)">
-        <img [src]="movie.poster" alt="">
-        <ion-card-header>
-          <ion-card-subtitle>{{movie.year}}</ion-card-subtitle>
-        </ion-card-header>
-        <ion-card-content>
-          <h2>{{movie.title}}</h2>
-        </ion-card-content>
-      </ion-card>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col *ngIf="error?.status == 404">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-subtitle>{{error.error.message}}</ion-card-subtitle>
+          </ion-card-header>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6" *ngFor="let movie of movies">
+        <ion-card (click)="getDetails(movie._id)">
+          <img [src]="movie.poster" alt="">
+          <ion-card-header>
+            <ion-card-subtitle>{{movie.year}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{movie.title}}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
