@@ -14,9 +14,14 @@ export class Tab2Page {
   search: string;
   movies: Movie[] = [];
   loading = false;
-  error : Object;
-  
-  constructor(private moviesService: MoviesService, private modalCtrl: ModalController, private handlerService: HandlerService) {}
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  error: Object;
+
+  constructor(
+    private moviesService: MoviesService,
+    private modalCtrl: ModalController,
+    private handlerService: HandlerService
+  ) {}
 
   onSearchChange(event) {
     const value: string = event.detail.value;
@@ -26,19 +31,22 @@ export class Tab2Page {
       return;
     }
     this.loading = true;
-    this.moviesService.searchMovies(this.search, value).subscribe((res) => {
-      this.movies = res.data;
-      this.loading = false;
-      this.error = null;
-    },  (err) => {
-      if (err.status === 400 || err.status === 406) {
-        this.handlerService.infoAlert(err.error.message);
-      } else {
-        this.movies = [];
-        this.error = err;
+    this.moviesService.searchMovies(this.search, value).subscribe(
+      (res) => {
+        this.movies = res.data;
+        this.loading = false;
+        this.error = null;
+      },
+      (err) => {
+        if (err.status === 400 || err.status === 406) {
+          this.handlerService.infoAlert(err.error.message);
+        } else {
+          this.movies = [];
+          this.error = err;
+        }
+        this.loading = false;
       }
-      this.loading= false;
-    });
+    );
   }
 
   radioGroupChange(event) {
