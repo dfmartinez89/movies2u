@@ -17,7 +17,7 @@ export class Tab3Page implements OnInit {
   movieForm: UntypedFormGroup;
 
   public errorMessages = {
-    geoLocation: [
+    location: [
       { type: 'required', message: 'Location is required' },
       {
         type: 'minlength',
@@ -65,7 +65,7 @@ export class Tab3Page implements OnInit {
   ) {}
   ngOnInit() {
     this.movieForm = this.formBuilder.group({
-      geoLocation: new UntypedFormControl(
+      location: new UntypedFormControl(
         '',
         Validators.compose([
           Validators.minLength(3),

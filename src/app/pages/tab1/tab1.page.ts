@@ -29,6 +29,7 @@ export class Tab1Page implements OnInit {
       }
     });
   }
+  
   async getDetails(id: string) {
     const modal = await this.modalCtrl.create({
       component: DetailsPage,

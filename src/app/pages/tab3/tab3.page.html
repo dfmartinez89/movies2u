@@ -31,6 +31,24 @@
         </ng-container>
       </div>
       <ion-item>
+        <ion-label position="floating">Genre</ion-label>
+        <ion-input
+          autocapitalize
+          type="text"
+          formControlName="genre"
+          required
+        ></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let error of errorMessages.genre">
+          <small
+            class="error-message"
+            *ngIf="movieForm.get('genre').hasError(error.type) && (movieForm.get('genre').dirty || movieForm.get('genre').touched)"
+            >{{error.message}}</small
+          >
+        </ng-container>
+      </div>
+      <ion-item>
         <ion-label position="floating">Year</ion-label>
         <ion-input type="text" formControlName="year" required></ion-input>
       </ion-item>
@@ -60,15 +78,15 @@
         <ion-label position="floating">Location</ion-label>
         <ion-input
           type="text"
-          formControlName="geoLocation"
+          formControlName="location"
           required
         ></ion-input>
       </ion-item>
       <div>
-        <ng-container *ngFor="let error of errorMessages.geoLocation">
+        <ng-container *ngFor="let error of errorMessages.location">
           <small
             class="error-message"
-            *ngIf="movieForm.get('geoLocation').hasError(error.type) && (movieForm.get('geoLocation').dirty || movieForm.get('geoLocation').touched)"
+            *ngIf="movieForm.get('location').hasError(error.type) && (movieForm.get('location').dirty || movieForm.get('location').touched)"
             >{{error.message}}</small
           >
         </ng-container>
