@@ -1,27 +1,29 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
 import {
-  UntypedFormBuilder,
+  FormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import { MoviesService } from '../../services/movies.service';
+import { NavController, ModalController } from '@ionic/angular';
+import { MoviesService } from 'src/app/services/movies.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Camera, CameraResultType } from '@capacitor/camera';
+import { Movie } from 'src/app/interfaces';
 
 @Component({
-  selector: 'app-reviews',
-  templateUrl: './reviews.page.html',
-  styleUrls: ['./reviews.page.scss'],
+  selector: 'app-edit-movie',
+  templateUrl: './edit-movie.page.html',
+  styleUrls: ['./edit-movie.page.scss'],
 })
-export class ReviewsPage implements OnInit {
+export class EditMoviePage implements OnInit {
   @Input() id;
-  reviewForm: UntypedFormGroup;
+  movie: Movie;
+  movieForm: UntypedFormGroup;
 
   public errorMessages = {
-    reviewLocation: [
+    location: [
       { type: 'required', message: 'Location is required' },
       {
         type: 'minlength',
@@ -32,32 +34,34 @@ export class ReviewsPage implements OnInit {
         message: 'Location cannot be more than 100 characters long',
       },
     ],
-    author: [
-      { type: 'required', message: 'Author is required' },
+    title: [
+      { type: 'required', message: 'Title is required' },
       {
         type: 'minlength',
-        message: 'Author must be at least 3 characters long',
+        message: 'Title must be at least 3 characters long',
       },
       {
         type: 'maxlength',
-        message: 'Author cannot be more than 30 characters long',
+        message: 'Title cannot be more than 200 characters long',
       },
     ],
     rating: [
       { type: 'required', message: 'Rating is required' },
       { type: 'min', message: 'Rating must be at least 1' },
     ],
-    description: [
-      { type: 'required', message: 'Description is required' },
+    genre: [
+      { type: 'required', message: 'Genre is required' },
       {
         type: 'minlength',
         message: 'Description must be at least 4 characters long',
       },
       {
         type: 'maxlength',
-        message: 'Description cannot be more than 200 characters long',
+        message: 'Genre cannot be more than 100 characters long',
       },
     ],
+    year: [{ type: 'required', message: 'Year is required' }],
+    poster: [{ type: 'required', message: 'Poster is required' }],
   };
   /**
    * Native props
@@ -68,21 +72,25 @@ export class ReviewsPage implements OnInit {
   photo: SafeResourceUrl;
 
   constructor(
-    private modalCtrl: ModalController,
-    private formBuilder: UntypedFormBuilder,
+    private formBuilder: FormBuilder,
+    private navCtrl: NavController,
     private moviesService: MoviesService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private modalCtrl: ModalController
   ) {}
 
   ngOnInit() {
+    this.moviesService.getMovieDetails(this.id).subscribe((resp) => {
+      this.movie = resp.data;
+    });
     this.photo = '../../../assets/avatars/av-4.png';
 
-    this.reviewForm = this.formBuilder.group({
-      author: new UntypedFormControl(
+    this.movieForm = this.formBuilder.group({
+      location: new UntypedFormControl(
         '',
         Validators.compose([
           Validators.minLength(3),
-          Validators.maxLength(50),
+          Validators.maxLength(100),
           Validators.required,
         ])
       ),
@@ -90,35 +98,41 @@ export class ReviewsPage implements OnInit {
         '',
         Validators.compose([Validators.pattern('[1-5]'), Validators.required])
       ),
-      description: new UntypedFormControl(
+      title: new UntypedFormControl(
         '',
         Validators.compose([
-          Validators.minLength(4),
+          Validators.minLength(3),
           Validators.maxLength(200),
           Validators.required,
         ])
       ),
-      reviewLocation: new UntypedFormControl(
+      genre: new UntypedFormControl(
         '',
         Validators.compose([
-          Validators.minLength(5),
+          Validators.minLength(4),
           Validators.maxLength(100),
           Validators.required,
         ])
       ),
+      year: new UntypedFormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
+      poster: new UntypedFormControl(
+        '',
+        Validators.compose([Validators.required])
+      ),
     });
   }
 
-  back() {
-    this.modalCtrl.dismiss();
-  }
-
   /**
-   * submit the review
+   * submit the movie
    */
-  submit(value) {
-    this.moviesService.addReview(this.id, value).subscribe(() => {
-      this.modalCtrl.dismiss();
+  async submit(value) {
+    await (
+      await this.moviesService.addMovie(value)
+    ).subscribe(() => {
+      this.navCtrl.navigateRoot('/main/tabs/tab1');
     });
   }
 
@@ -139,5 +153,9 @@ export class ReviewsPage implements OnInit {
     this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(
       image && image.webPath
     );
+  }
+
+  back() {
+    this.modalCtrl.dismiss();
   }
 }

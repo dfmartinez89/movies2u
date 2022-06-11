@@ -78,14 +78,16 @@
         <ion-icon slot="start" name="arrow-undo-outline"></ion-icon>
         <ion-label>Back</ion-label>
       </ion-button>
+      <ion-button (click)="editMovie(movie._id)">
+        <ion-icon slot="start" name="pencil-outline"></ion-icon>
+        <ion-label>Edit</ion-label>
+      </ion-button>
     </ion-buttons>
     <ion-buttons slot="end">
       <ion-button (click)="onOpenDeleteMenu(movie._id)">
         <ion-icon slot="start" name="trash-outline"></ion-icon>
         <ion-label>Delete</ion-label>
       </ion-button>
-    </ion-buttons>
-    <ion-buttons slot="end">
       <ion-button (click)="addReview(movie._id)">
         <ion-icon slot="start" name="create-outline"></ion-icon>
         <ion-label>Review</ion-label>

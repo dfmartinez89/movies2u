@@ -5,8 +5,11 @@ import {
   UntypedFormGroup,
   Validators,
 } from '@angular/forms';
-import {  NavController } from '@ionic/angular';
+import { NavController } from '@ionic/angular';
 import { MoviesService } from 'src/app/services/movies.service';
+import { Geolocation } from '@capacitor/geolocation';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Camera, CameraResultType } from '@capacitor/camera';
 
 @Component({
   selector: 'app-tab3',
@@ -57,13 +60,23 @@ export class Tab3Page implements OnInit {
     year: [{ type: 'required', message: 'Year is required' }],
     poster: [{ type: 'required', message: 'Poster is required' }],
   };
+  /**
+   * Native props
+   */
+  latitude: number;
+  longitude: number;
+  accuracy: number;
+  photo: SafeResourceUrl;
 
   constructor(
     private formBuilder: FormBuilder,
     private navCtrl: NavController,
-    private moviesService: MoviesService
+    private moviesService: MoviesService,
+    private sanitizer: DomSanitizer
   ) {}
   ngOnInit() {
+    this.photo = '../../../assets/avatars/av-4.png';
+
     this.movieForm = this.formBuilder.group({
       location: new UntypedFormControl(
         '',
@@ -113,5 +126,24 @@ export class Tab3Page implements OnInit {
     ).subscribe(() => {
       this.navCtrl.navigateRoot('/main/tabs/tab1');
     });
+  }
+
+  async getLocation() {
+    const position = await Geolocation.getCurrentPosition();
+    this.latitude = position.coords.latitude;
+    this.longitude = position.coords.longitude;
+    this.accuracy = position.coords.accuracy;
+  }
+
+  async takePicture() {
+    const image = await Camera.getPhoto({
+      quality: 100,
+      allowEditing: false,
+      resultType: CameraResultType.Uri,
+    });
+
+    this.photo = this.sanitizer.bypassSecurityTrustResourceUrl(
+      image && image.webPath
+    );
   }
 }

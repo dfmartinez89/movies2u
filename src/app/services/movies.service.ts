@@ -49,6 +49,17 @@ export class MoviesService {
     }
   }
 
+  async updateMovie(movieId: string, movie: Movie) {
+    const token = await this.usersService.getTokenFromStorage();
+    if (!token || token === null) {
+      this.handlerService.infoAlert(
+        'You need to be logged in to update a movie'
+      );
+    } else {
+      return this.http.put<Movie>(`${url}/${movieId}`, movie);
+    }
+  }
+
   async deleteMovie(movieId: string) {
     const token = await this.usersService.getTokenFromStorage();
     if (!token || token === null) {

@@ -3,6 +3,7 @@ import { ActionSheetController, ModalController } from '@ionic/angular';
 import { Movie, Review } from '../../interfaces';
 import { MoviesService } from '../../services/movies.service';
 import { ReviewsPage } from '../reviews/reviews.page';
+import { EditMoviePage } from '../edit-movie/edit-movie.page';
 
 @Component({
   selector: 'app-details',
@@ -96,5 +97,14 @@ export class DetailsPage implements OnInit {
     });
 
     await actionSheet.present();
+  }
+
+  async editMovie(id) {
+    this.modalCtrl.dismiss();
+    const modal = await this.modalCtrl.create({
+      component: EditMoviePage,
+      componentProps: { id },
+    });
+    modal.present();
   }
 }
