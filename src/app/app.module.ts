@@ -28,9 +28,9 @@ import { PipesModule } from './pipes/pipes.module';
       name: 'movies2u_db',
       // eslint-disable-next-line no-underscore-dangle
       driverOrder: [
-        CordovaSQLiteDriver._driver,
-        Drivers.IndexedDB,
         Drivers.LocalStorage,
+        Drivers.IndexedDB,
+        CordovaSQLiteDriver._driver,
       ],
     }),
   ],

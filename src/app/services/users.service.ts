@@ -49,11 +49,13 @@ export class UsersService {
           if (resp.success) {
             this.saveToken(resp.token);
             resolve(true);
+          } else {
+            this.deleteToken();
+            resolve(false);
           }
         },
         (err) => {
-          this.token = null;
-          this.storage.clear();
+          this.deleteToken();
           resolve(false);
         }
       );
@@ -73,7 +75,7 @@ export class UsersService {
   }
 
   async getTokenFromStorage() {
-    this.token = await this.storage.get(this.localToken) || null;
+    this.token = (await this.storage.get(this.localToken)) || null;
     return this.token;
   }
 
@@ -82,5 +84,10 @@ export class UsersService {
     if (!this.token) {
       this.navCtrl.navigateRoot('/login');
     }
+  }
+
+  async deleteToken() {
+    this.token = null;
+    await this.storage.clear();
   }
 }

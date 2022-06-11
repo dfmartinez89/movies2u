@@ -24,12 +24,10 @@ export class Tab1Page implements OnInit {
 
   ngOnInit() {
     this.moviesService.getMovies().subscribe((resp) => {
-      if (resp.success) {
-        this.movies = resp.data;
-      }
+      this.movies = resp.data;
     });
   }
-  
+
   async getDetails(id: string) {
     const modal = await this.modalCtrl.create({
       component: DetailsPage,
