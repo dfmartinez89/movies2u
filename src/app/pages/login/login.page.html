@@ -16,12 +16,22 @@
           <ion-list>
             <ion-item>
               <ion-label>Email</ion-label>
-              <ion-input name="email" type="email" required [(ngModel)]="loginUser.email"></ion-input>
+              <ion-input
+                name="email"
+                type="email"
+                required
+                [(ngModel)]="loginUser.email"
+              ></ion-input>
             </ion-item>
 
             <ion-item>
               <ion-label>Password</ion-label>
-              <ion-input name="password" type="password" required [(ngModel)]="loginUser.password"></ion-input>
+              <ion-input
+                name="password"
+                type="password"
+                required
+                [(ngModel)]="loginUser.password"
+              ></ion-input>
             </ion-item>
           </ion-list>
         </ion-col>
@@ -29,8 +39,23 @@
 
       <ion-row>
         <ion-col>
-          <ion-button type="submit" color="tertiary" shape="round" [disabled]="!flogin.valid">
+          <ion-button
+            type="submit"
+            color="tertiary"
+            shape="round"
+            [disabled]="!flogin.valid"
+          >
             Login
+          </ion-button>
+        </ion-col>
+
+        <ion-col>
+          <ion-button
+            [routerLink]="['/main/tabs/tab1']"
+            color="tertiary"
+            shape="round"
+          >
+            Guest
           </ion-button>
         </ion-col>
       </ion-row>

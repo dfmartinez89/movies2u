@@ -11,8 +11,8 @@ import { UsersService } from 'src/app/services/users.service';
 })
 export class LoginPage implements OnInit {
   loginUser = {
-    email: 'user1@test.com',
-    password: '123456',
+    email: '',
+    password: '',
   };
 
   constructor(private usersService: UsersService, private navCtrl: NavController, private handlerService: HandlerService) {}
@@ -23,10 +23,14 @@ export class LoginPage implements OnInit {
     if (flogin.invalid) {
       return;
     }
-    const isLogin = await this.usersService.login(
+    const isLogin = this.usersService.login(
       this.loginUser.email,
       this.loginUser.password
-    );
+    ).then((res) => {
+
+    }, (err) => {
+      console.log(err);
+    });
     if (isLogin) {
       //browse tabs
       this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });

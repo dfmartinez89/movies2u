@@ -3,6 +3,11 @@
     <ion-title>
       Search Movie
     </ion-title>
+    <ion-buttons slot="end">
+      <ion-button [routerLink]="['/login']">
+        <ion-icon name="person-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
     <ion-searchbar placeholder="Search Movie" animated inputmode="text" (ionChange)="onSearchChange($event)" [debounce]="500"></ion-searchbar>
