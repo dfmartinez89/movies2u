@@ -15,7 +15,11 @@ export class LoginPage implements OnInit {
     password: '',
   };
 
-  constructor(private usersService: UsersService, private navCtrl: NavController, private handlerService: HandlerService) {}
+  constructor(
+    private usersService: UsersService,
+    private navCtrl: NavController,
+    private handlerService: HandlerService
+  ) {}
 
   ngOnInit() {}
 
@@ -23,14 +27,10 @@ export class LoginPage implements OnInit {
     if (flogin.invalid) {
       return;
     }
-    const isLogin = this.usersService.login(
+    const isLogin = await this.usersService.login(
       this.loginUser.email,
       this.loginUser.password
-    ).then((res) => {
-
-    }, (err) => {
-      console.log(err);
-    });
+    );
     if (isLogin) {
       //browse tabs
       this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
@@ -38,5 +38,11 @@ export class LoginPage implements OnInit {
       //show alert
       this.handlerService.infoAlert('Name or password incorrect');
     }
+  }
+
+  enterGuest() {
+    this.usersService.deleteToken().then(() => {
+      this.navCtrl.navigateRoot('/main/tabs/tab1', { animated: true });
+    });
   }
 }

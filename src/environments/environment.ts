@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   apiUrl: 'http://localhost:3000/movies',
   apiSearchUrl: 'http://localhost:3000/search',
+  apiSearchIMDbUrl: 'http://localhost:3000/imdb',
   apiLoginUrl: 'http://localhost:3000/users/login',
   baseUrl: 'http://localhost:3000',
 };

@@ -3,7 +3,6 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
@@ -28,9 +27,9 @@ import { PipesModule } from './pipes/pipes.module';
       name: 'movies2u_db',
       // eslint-disable-next-line no-underscore-dangle
       driverOrder: [
-        CordovaSQLiteDriver._driver,
-        Drivers.IndexedDB,
         Drivers.LocalStorage,
+        Drivers.IndexedDB,
+        CordovaSQLiteDriver._driver,
       ],
     }),
   ],
