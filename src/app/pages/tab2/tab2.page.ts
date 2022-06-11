@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { DetailsPage } from '../details/details.page';
-import { Movie } from '../../interfaces';
+import { Movie, SearchErrorResponse } from '../../interfaces';
 import { MoviesService } from '../../services/movies.service';
 import { HandlerService } from 'src/app/services/handler.service';
 
@@ -15,7 +15,7 @@ export class Tab2Page {
   movies: Movie[] = [];
   loading = false;
   // eslint-disable-next-line @typescript-eslint/ban-types
-  error: Object;
+  error: SearchErrorResponse;
 
   constructor(
     private moviesService: MoviesService,
@@ -40,10 +40,13 @@ export class Tab2Page {
       (err) => {
         if (err.status === 400 || err.status === 406) {
           this.handlerService.infoAlert(err.error.message);
-        } else {
+        } else if (err.status === 400) {
+          this.error.message =
+            'We could not find any movies matching your search';
           this.movies = [];
-          this.error = err;
+          this.loading = false;
         }
+
         this.loading = false;
       }
     );
