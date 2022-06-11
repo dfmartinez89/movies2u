@@ -1,8 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar color="primary">
-    <ion-title>
-      Search Movie
-    </ion-title>
+    <ion-title> Search Movie </ion-title>
     <ion-buttons slot="end">
       <ion-button [routerLink]="['/login']">
         <ion-icon name="person-outline"></ion-icon>
@@ -10,8 +8,13 @@
     </ion-buttons>
   </ion-toolbar>
   <ion-toolbar>
-    <ion-searchbar placeholder="Search Movie" animated inputmode="text" (ionChange)="onSearchChange($event)"
-      [debounce]="500"></ion-searchbar>
+    <ion-searchbar
+      placeholder="Search Movie"
+      animated
+      inputmode="text"
+      (ionChange)="onSearchChange($event)"
+      [debounce]="500"
+    ></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 
@@ -24,7 +27,11 @@
     </ion-row>
   </ion-grid>
   <ion-list>
-    <ion-radio-group name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
+    <ion-radio-group
+      name="radio-group"
+      (ionChange)="radioGroupChange($event)"
+      #radioGroup
+    >
       <ion-item>
         <ion-label>Title</ion-label>
         <ion-radio value="title" checked></ion-radio>
@@ -50,10 +57,21 @@
         </ion-card>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="results">
+      <ion-col size="6" *ngFor="let result of results">
+        <ion-card>
+          <img [src]="result.image" alt="" />
+          <ion-card-header>
+            <ion-card-subtitle>{{result.title}}</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content> {{result.description}} </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row *ngIf="movies">
       <ion-col size="6" *ngFor="let movie of movies">
         <ion-card (click)="getDetails(movie._id)">
-          <img [src]="movie.poster" alt="">
+          <img [src]="movie.poster" alt="" />
           <ion-card-header>
             <ion-card-subtitle>{{movie.year}}</ion-card-subtitle>
           </ion-card-header>
