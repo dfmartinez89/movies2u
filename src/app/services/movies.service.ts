@@ -1,8 +1,9 @@
 /* eslint-disable max-len */
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { GetAllMovies, Movie, Review, SearchMovies } from '../interfaces';
+import { GetAllMovies, IMDBResponse, Movie, Review, SearchMovies } from '../interfaces';
 import { GetMovieDetails } from '../interfaces/index';
 import { HandlerService } from './handler.service';
 import { UsersService } from './users.service';
@@ -34,8 +35,15 @@ export class MoviesService {
     );
   }
 
-  searchMoviesIMDb(value: string) {
-    return this.http.get<SearchMovies>(`${imdbUrl}?criteria=${value}`);
+  async searchMoviesIMDb(value: string){
+    const token = await this.usersService.getTokenFromStorage();
+    if (!token || token === null) {
+      this.handlerService.infoAlert('You need to be logged in to search movies at IMDb');
+    } else {
+      return this.http.get<IMDBResponse>(`${imdbUrl}?criteria=${value}`, {
+        headers: new HttpHeaders({}).set('Authorization', `Bearer ${token}`),
+      });
+    }
   }
 
   async addMovie(movie: Movie) {
